@@ -1,0 +1,22 @@
+apply plugin: 'java'//导入java插件用于，编译打包我们的插件
+apply plugin: 'maven'//maven插件，用于上传插件到仓库
+
+//uploadArchives 类型是upload，这个task不是'maven'创建的
+//而是'maven'定义了一个rule,而后由我们自己创建的，关于rule，请看后面内容
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地的Maven地址设置为D:/repos
+            repository(url: uri('../repo'))
+        }
+    }
+}
+group = "com.cuilifan.asmplugin"//project属性
+version = "1.0"//project属性
+dependencies {
+    //导入Gradle的api，要写插件，肯定要使用Gradle的api
+    implementation gradleApi()
+    implementation "com.android.tools.build:gradle:4.0.1"
+    implementation "org.ow2.asm:asm:7.1"
+    implementation "org.ow2.asm:asm-commons:7.1"
+}
